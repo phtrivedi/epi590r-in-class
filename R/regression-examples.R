@@ -95,3 +95,28 @@ tbl_int <- tbl_regression(
 
 tbl_merge(list(tbl_no_int, tbl_int),
 					tab_spanner = c("**Model 1**", "**Model 2**"))
+
+## Univariate regression sex_cat with nsibs, sleep_wkdy, sleep_wknd, and income
+tbl_uvregression(nlsy,
+								x = sex_cat,
+								include = c(nsibs, sleep_wkdy, sleep_wknd, income),
+								method = lm)
+
+## Poisson regression for number of siblings
+tbl_uvregression(nlsy,
+								 y = nsibs,
+								 include = c(region_cat, eyesight_cat, age_bir),
+								 method = glm,
+								 method.args = list(family = poisson()),
+								 exponentiate = TRUE)
+
+## Binomial regression and table with risk ratios with eysight_cat and sex_cat predicting glasses
+tbl_uvregression(nlsy,
+								 y = glasses,
+								 include = c(eyesight_cat, sex_cat),
+								 method = glm,
+								 method.args = (family = binomial(link = "log")),
+								 label = list(eyesight_cat ~ "Eyesight",
+								 						  sex_cat ~ "Sex")) %>%
+								 bold_labels()
+

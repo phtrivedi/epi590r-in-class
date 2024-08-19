@@ -57,3 +57,27 @@ tbl_summary(
 	modify_footnote(update = everything() ~ NA) |>
 	modify_header(label = "**Variable**", p.value = "**P**")
 
+tbl_summary(nlsy,
+						by = sex_cat,
+						digits = list(income ~ 3,
+													sleep_wkdy ~ 1,
+													sleep_wknd ~ 1),
+						include = c(region_cat, race_eth_cat, income, sleep_wkdy, sleep_wknd),
+						label = list(
+												 region_cat ~ "Region",
+												 race_eth_cat ~ "Race/Ethnicity",
+												 income ~ "Income",
+												 sleep_wkdy ~ "Weekday Sleep",
+												 sleep_wknd ~ "Weekend Sleep"),
+						missing_text = "Missing") %>%
+						add_p(test = list(all_continuous() ~ "t.test",
+										all_categorical() ~ "chisq.test")) %>%
+						add_overall(col_label = "**Total**") %>%
+						bold_labels() %>%
+						modify_header(label = "**Variable**", p.value = "**P**") %>%
+						list(income ~ "(p{10}, p{90}, c(3,3)",
+							   sleep_wkdy ~ "{min}, {max}",
+								 sleep_wknd ~ "{min}, {max}")
+
+
+
