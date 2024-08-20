@@ -77,9 +77,9 @@ table1 <- tbl_summary(
   nlsy,
   by = sex_cat,
   include = c(sex_cat, race_eth_cat, region_cat,
-              eyesight_cat, glasses, age_bir)) |> 
+              eyesight_cat, glasses, age_bir, sleep_wknd)) |> 
   add_overall(last = TRUE)
 
-inline_text(table1, variable = "age_bir", column = "stat_1")
-
+table1
+mean_hrs_sleep <- inline_text(table1, variable = "sleep_wknd", column = "stat_0")
 ```

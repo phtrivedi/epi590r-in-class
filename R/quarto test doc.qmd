@@ -1,9 +1,7 @@
 ---
 title: "Quarto Test doc"
 author: "Parth Trivedi"
-format: 
-  html:
-  	theme: yeti
+format: html
 ---
 
 ## Quarto
